@@ -1,6 +1,6 @@
+using GNStudentManagement.Helpers;
 using GNStudentManagement.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -20,8 +20,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-builder.Services.AddDbContext<GnstudentManagementContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Add Swagger with JWT support
 builder.Services.AddSwaggerGen(options =>
 {
@@ -73,6 +72,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
+var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JWTModel>();
+JWTHelper.Initialize(jwtSettings);
+
+builder.Services.Configure<JWTModel>(
+    builder.Configuration.GetSection("Jwt"));
+
 
 
 var authBuilder = builder.Services.AddAuthorizationBuilder();

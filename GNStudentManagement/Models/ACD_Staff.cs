@@ -2,28 +2,43 @@
 using System.Collections.Generic;
 
 namespace GNStudentManagement.Models;
-
-public partial class AcdStaff
+/// <summary>
+/// 
+/// </summary>
+public partial class ACD_Staff
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public int StaffId { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string StaffName { get; set; } = null!;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string? Phone { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string? Email { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string Password { get; set; } = null!;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string? Description { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public DateTime Created { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public DateTime? Modified { get; set; }
 
-    public virtual ICollection<AcdPrjProjectGroup> AcdPrjProjectGroupConvenerStaffs { get; set; } = new List<AcdPrjProjectGroup>();
 
-    public virtual ICollection<AcdPrjProjectGroup> AcdPrjProjectGroupExpertStaffs { get; set; } = new List<AcdPrjProjectGroup>();
-
-    public virtual ICollection<AcdPrjProjectMeeting> AcdPrjProjectMeetings { get; set; } = new List<AcdPrjProjectMeeting>();
 }

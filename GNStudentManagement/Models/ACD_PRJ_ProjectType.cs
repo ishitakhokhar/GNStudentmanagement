@@ -2,18 +2,30 @@
 using System.Collections.Generic;
 
 namespace GNStudentManagement.Models;
-
-public partial class AcdPrjProjectType
+/// <summary>
+/// 
+/// </summary>
+public partial class ACD_PRJ_ProjectType
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public int ProjectTypeId { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string ProjectTypeName { get; set; } = null!;
-
+    /// <summary>
+    /// 
+    /// </summary>
     public string? Description { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public DateTime Created { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public DateTime? Modified { get; set; }
 
-    public virtual ICollection<AcdPrjProjectGroup> AcdPrjProjectGroups { get; set; } = new List<AcdPrjProjectGroup>();
 }
