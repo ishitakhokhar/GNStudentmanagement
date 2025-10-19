@@ -30,7 +30,7 @@ namespace GNStudentManagement.Controllers
         }
         #endregion
 
-        #region Register
+        #region login
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel objLoginModel)
         {

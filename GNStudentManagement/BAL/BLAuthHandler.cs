@@ -13,7 +13,6 @@ namespace GNStudentManagement.BAL
         Response objResponse = new Response();
         JWTHelper objJWTHelper = new JWTHelper();
 
-
         public Response Register(ACD_Student objACD_Student)
         {
             if (objACD_Student == null)
@@ -73,7 +72,7 @@ namespace GNStudentManagement.BAL
                 else
                 {
                     objResponse.IsError = true;
-                    objResponse.Message = "Failed to register student.";
+                    objResponse.Message = "Failed to register Faculty.";
                 }
             }
             return objResponse;
