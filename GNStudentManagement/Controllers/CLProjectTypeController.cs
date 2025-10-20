@@ -2,6 +2,7 @@
 using GNStudentManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GNStudentManagement.Controllers
 {
@@ -12,15 +13,14 @@ namespace GNStudentManagement.Controllers
         BLProjectTypeHandler objBLProjectTypeHandler = new BLProjectTypeHandler();
 
         #region Get All Project Types
+
         [HttpGet("getall")]
         public IActionResult GetAllProjectTypes()
         {
-            List<ACD_PRJ_ProjectType> projectTypes = objBLProjectTypeHandler.GetAllProjectTypes();
-            if (projectTypes != null && projectTypes.Count > 0)
-            {
-                return Ok(projectTypes);
-            }
-            return NotFound(new { Message = "No project types found." });
+            Response response = objBLProjectTypeHandler.GetAllProjectTypes();
+            if (!response.IsError)
+                return Ok(response);
+            return NotFound(response);
         }
         #endregion
 
@@ -28,34 +28,61 @@ namespace GNStudentManagement.Controllers
         public IActionResult GetProjectTypeByID([FromQuery] int projectTypeId)
         {
             if (projectTypeId <= 0)
-            {
                 return BadRequest(new { Message = "Invalid Project Type ID." });
-            }
 
-            ACD_PRJ_ProjectType projectType = objBLProjectTypeHandler.GetProjectTypeByID(projectTypeId);
+            Response response = objBLProjectTypeHandler.GetProjectTypeByID(projectTypeId);
+            if (!response.IsError)
+                return Ok(response);
 
-            if (projectType != null)
-            {
-                return Ok(projectType); 
-            }
-
-            return NotFound(new { Message = "Project Type not found." });
+            return NotFound(response);
         }
-
-        [HttpPost("insertupdate")]
-
-        public IActionResult InsertUpdate([FromBody] ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
+        [HttpPost("insert")]
+        public IActionResult Insert([FromBody] ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
         {
             if (objACD_PRJ_ProjectType == null)
             {
                 return BadRequest(new { Message = "Invalid project type data." });
             }
-            Response response = objBLProjectTypeHandler.InsertUpdate(objACD_PRJ_ProjectType);
+            objACD_PRJ_ProjectType.ProjectTypeId = 0;
+
+            Response response = objBLProjectTypeHandler.Save(objACD_PRJ_ProjectType);
+
             if (!response.IsError)
-            {
                 return Ok(response);
-            }
+
             return BadRequest(response);
         }
+
+
+        [HttpPut("edit/{id}")]
+        public IActionResult Edit(int id, [FromBody] ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
+        {
+            if (objACD_PRJ_ProjectType == null || id <= 0)
+            {
+                return BadRequest(new { Message = "Invalid project type data." });
+            }
+
+            objACD_PRJ_ProjectType.ProjectTypeId = id;
+
+            Response response = objBLProjectTypeHandler.Save(objACD_PRJ_ProjectType);
+
+            if (!response.IsError)
+                return Ok(response);
+
+            return BadRequest(response);
+        }
+
+
+        [HttpDelete("id")]
+        public IActionResult DeleteProjectType([FromQuery] int projectTypeId)
+        {
+            Response response = objBLProjectTypeHandler.Delete(projectTypeId);
+
+            if (!response.IsError)
+                return Ok(response);
+
+            return BadRequest(response);
+        }
+
     }
 }

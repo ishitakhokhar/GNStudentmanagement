@@ -4,11 +4,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
+
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -86,6 +93,8 @@ var authBuilder = builder.Services.AddAuthorizationBuilder();
 authBuilder.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
 authBuilder.AddPolicy("ManagerOrAdmin", policy => policy.RequireRole("Faculty"));
 authBuilder.AddPolicy("Employee", policy => policy.RequireRole("Student"));
+
+
 
 // Build the app
 var app = builder.Build();

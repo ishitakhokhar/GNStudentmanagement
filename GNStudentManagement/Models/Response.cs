@@ -21,5 +21,8 @@ namespace GNStudentManagement.Models
         /// 
         /// </summary>
         public string Message { get; set; }
+
+
+
     }
 }
