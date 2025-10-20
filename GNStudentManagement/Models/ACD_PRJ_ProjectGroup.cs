@@ -60,4 +60,8 @@ public  class ACD_PRJ_ProjectGroup
     /// Represent modified date time
     /// </summary>
     public DateTime? Modified { get; set; }
+
+    public string? ConvenerStaffName { get; set; }
+    public string? ExpertStaffName { get; set; }
+    public string? ProjectTypeName { get; set; }
 }

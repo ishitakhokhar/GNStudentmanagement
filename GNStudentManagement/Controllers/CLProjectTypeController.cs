@@ -1,5 +1,6 @@
 ﻿using GNStudentManagement.BAL;
 using GNStudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ namespace GNStudentManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CLProjectTypeController : ControllerBase
     {
         BLProjectTypeHandler objBLProjectTypeHandler = new BLProjectTypeHandler();
@@ -19,8 +21,13 @@ namespace GNStudentManagement.Controllers
         {
             Response response = objBLProjectTypeHandler.GetAllProjectTypes();
             if (!response.IsError)
+            {
                 return Ok(response);
-            return NotFound(response);
+            }
+            else
+            {
+                return NotFound(response);
+            }
         }
         #endregion
 
@@ -32,8 +39,10 @@ namespace GNStudentManagement.Controllers
 
             Response response = objBLProjectTypeHandler.GetProjectTypeByID(projectTypeId);
             if (!response.IsError)
+            {  
                 return Ok(response);
-
+            }
+               
             return NotFound(response);
         }
         [HttpPost("insert")]

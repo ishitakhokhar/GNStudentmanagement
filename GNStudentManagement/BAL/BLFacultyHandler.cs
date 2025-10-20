@@ -29,6 +29,7 @@ namespace GNStudentManagement.BAL
                     string email = row["Email"].ToString();
                     string name = row["StaffName"].ToString();
 
+
                     var tokenObject = objJWTHelper.GenerateJWTToken(email, StaffId, "Staff"); 
 
                     return new
