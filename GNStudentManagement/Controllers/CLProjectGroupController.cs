@@ -110,7 +110,6 @@ namespace GNStudentManagement.Controllers
         [HttpGet("dropdown")]
         public IActionResult GetProjectGroupDropDown()
         {
-            BLProjectGroupHandler objBLProjectGroupHandler = new BLProjectGroupHandler();
             Response response = objBLProjectGroupHandler.GetProjectGroupDropDown();
 
             if (!response.IsError)

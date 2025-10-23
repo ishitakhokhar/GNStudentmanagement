@@ -53,5 +53,24 @@ namespace GNStudentManagement.BAL
             }
             return objResponse;
         }
+        public Response GetProjectGroupDropDown()
+        {
+            DataTable dt = objDBFacultyContext.GetProjectGroupDropDown();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Faculty dropdown loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "No  faculty found for dropdown.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
     }
 }

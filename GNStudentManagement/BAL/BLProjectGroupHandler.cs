@@ -126,9 +126,7 @@ namespace GNStudentManagement.BAL
 
         public Response GetProjectGroupDropDown()
         {
-            Response objResponse = new Response();
-            DBProjectGroupDropDownContext objDBProjectGroupDropDownContext = new DBProjectGroupDropDownContext();
-            DataTable dt = objDBProjectGroupDropDownContext.GetProjectGroupDropDown();
+            DataTable dt = objDBProjectGroupContext.GetProjectGroupDropDown();
 
             if (dt != null && dt.Rows.Count > 0)
             {

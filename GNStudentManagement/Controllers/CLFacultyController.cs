@@ -9,13 +9,29 @@ namespace GNStudentManagement.Controllers
     [ApiController]
     public class CLFacultyController : ControllerBase
     {
-        BLFacultyHandler objBLABLFacultyHandler = new BLFacultyHandler();
+        BLFacultyHandler objBLFacultyHandler = new BLFacultyHandler();
         #region login
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel objLoginModel)
         {
-            var response = objBLABLFacultyHandler.Login(objLoginModel);
+            var response = objBLFacultyHandler.Login(objLoginModel);
             return Ok(response);
+        }
+        #endregion
+
+
+        #region ProjectGroup DropDown
+        [HttpGet("dropdown")]
+        public IActionResult GetProjectGroupDropDown()
+        {
+            Response response = objBLFacultyHandler.GetProjectGroupDropDown();
+
+            if (!response.IsError)
+            {
+                return Ok(response);
+            }
+
+            return BadRequest(response);
         }
         #endregion
     }

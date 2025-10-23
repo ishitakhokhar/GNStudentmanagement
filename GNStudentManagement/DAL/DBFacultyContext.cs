@@ -74,5 +74,34 @@ namespace GNStudentManagement.DAL
                 return null;
             }
         }
+
+        public DataTable GetProjectGroupDropDown()
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand dbCommand = sqlConnection.CreateCommand())
+                    {
+                        dbCommand.CommandType = CommandType.StoredProcedure;
+                        dbCommand.CommandText = "ACD_Staff_DropDown";
+
+                        using (SqlDataReader reader = dbCommand.ExecuteReader())
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+                            return dt;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
     }
 }
