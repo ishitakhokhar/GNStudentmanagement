@@ -89,7 +89,7 @@ namespace GNStudentManagement.Controllers
             return BadRequest(response);
         }
 
-
+        #region
         [HttpDelete("id")]
         public IActionResult DeleteProjectType([FromQuery] int projectGroupId)
         {
@@ -103,5 +103,24 @@ namespace GNStudentManagement.Controllers
 
             return BadRequest(response);
         }
+        #endregion
+
+
+        #region ProjectGroup DropDown
+        [HttpGet("dropdown")]
+        public IActionResult GetProjectGroupDropDown()
+        {
+            BLProjectGroupHandler objBLProjectGroupHandler = new BLProjectGroupHandler();
+            Response response = objBLProjectGroupHandler.GetProjectGroupDropDown();
+
+            if (!response.IsError)
+            {
+                return Ok(response);
+            }
+
+            return BadRequest(response);
+        }
+        #endregion
+
     }
 }

@@ -1,7 +1,8 @@
 ﻿using GNStudentManagement.DAL;
 using GNStudentManagement.Models;
-using System.Data;
 using Newtonsoft.Json;
+using System.Data;
+using static GNStudentManagement.DAL.DBProjectGroupContext;
 
 namespace GNStudentManagement.BAL
 {
@@ -9,10 +10,10 @@ namespace GNStudentManagement.BAL
     {
         public readonly IConfiguration _config;
         DBProjectGroupContext objDBProjectGroupContext = new DBProjectGroupContext();
-
+        Response objResponse = new Response();
         public Response GetAllProjectGroups()
         {
-            Response objResponse = new Response();
+           
             DataTable dt = objDBProjectGroupContext.GetData();
 
             if (dt != null && dt.Rows.Count > 0)
@@ -122,5 +123,28 @@ namespace GNStudentManagement.BAL
 
             return objResponse;
         }
+
+        public Response GetProjectGroupDropDown()
+        {
+            Response objResponse = new Response();
+            DBProjectGroupDropDownContext objDBProjectGroupDropDownContext = new DBProjectGroupDropDownContext();
+            DataTable dt = objDBProjectGroupDropDownContext.GetProjectGroupDropDown();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Project Group dropdown loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "No project groups found for dropdown.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
     }
 }

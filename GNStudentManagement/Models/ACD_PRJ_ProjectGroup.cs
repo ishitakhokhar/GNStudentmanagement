@@ -43,6 +43,8 @@ public  class ACD_PRJ_ProjectGroup
     /// <summary>
     /// Represent convener staff id
     /// </summary>
+    /// 
+
     public int? ConvenerStaffId { get; set; }
     /// <summary>
     /// Represent expert staff id
@@ -52,6 +54,11 @@ public  class ACD_PRJ_ProjectGroup
     /// Represent description
     /// </summary>
     public string? Description { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public int GuideStaffID { get; set; }
     /// <summary>
     /// Represent created date time
     /// </summary>

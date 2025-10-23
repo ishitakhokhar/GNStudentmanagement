@@ -24,6 +24,7 @@ namespace GNStudentManagement.DAL
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectGroup.ProjectGroupId));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupName", objACD_PRJ_ProjectGroup.ProjectGroupName));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeID", objACD_PRJ_ProjectGroup.ProjectTypeId));
+                            dbCommand.Parameters.Add(new SqlParameter("GuideStaffID", objACD_PRJ_ProjectGroup.GuideStaffID));
                             dbCommand.Parameters.Add(new SqlParameter("@GuideStaffName", objACD_PRJ_ProjectGroup.GuideStaffName));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTitle", objACD_PRJ_ProjectGroup.ProjectTitle));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectArea", objACD_PRJ_ProjectGroup.ProjectArea));
@@ -38,7 +39,7 @@ namespace GNStudentManagement.DAL
                             dbCommand.CommandText = "ACD_PRJ_ProjectGroup_Insert";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupName", objACD_PRJ_ProjectGroup.ProjectGroupName));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeID", objACD_PRJ_ProjectGroup.ProjectTypeId));
-                            dbCommand.Parameters.Add(new SqlParameter("@GuideStaffName", objACD_PRJ_ProjectGroup.GuideStaffName));
+                            dbCommand.Parameters.Add(new SqlParameter("GuideStaffID", objACD_PRJ_ProjectGroup.GuideStaffID));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTitle", objACD_PRJ_ProjectGroup.ProjectTitle));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectArea", objACD_PRJ_ProjectGroup.ProjectArea));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectDescription", objACD_PRJ_ProjectGroup.ProjectDescription));
@@ -133,6 +134,36 @@ namespace GNStudentManagement.DAL
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public class DBProjectGroupDropDownContext : ConnectionHelper
+        {
+            public DataTable GetProjectGroupDropDown()
+            {
+                try
+                {
+                    using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+                    {
+                        sqlConnection.Open();
+                        using (SqlCommand dbCommand = sqlConnection.CreateCommand())
+                        {
+                            dbCommand.CommandType = CommandType.StoredProcedure;
+                            dbCommand.CommandText = "ACD_PRJ_ProjectGroup_DropDown";
+
+                            using (SqlDataReader reader = dbCommand.ExecuteReader())
+                            {
+                                DataTable dt = new DataTable();
+                                dt.Load(reader);
+                                return dt;
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             }
         }
     }

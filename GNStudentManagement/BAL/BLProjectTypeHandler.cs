@@ -9,11 +9,11 @@ namespace GNStudentManagement.BAL
     {
         public readonly IConfiguration _config;
         DBProjectTypeContext objDBPProjectTypeContext = new DBProjectTypeContext();
-
+        Response objResponse = new Response();
 
         public Response GetAllProjectTypes()
         {
-            Response objResponse = new Response();
+            
             DataTable dt = objDBPProjectTypeContext.GetData();
 
             if (dt != null && dt.Rows.Count > 0)
