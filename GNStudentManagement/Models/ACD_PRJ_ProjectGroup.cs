@@ -19,10 +19,6 @@ public  class ACD_PRJ_ProjectGroup
     /// Represent project type id
     /// </summary>
     public int ProjectTypeId { get; set; }
-    /// <summary>
-    /// Represent guidence staff name
-    /// </summary>
-    public string? GuideStaffName { get; set; }
 
     /// <summary>
     /// Represenet project title
@@ -67,8 +63,4 @@ public  class ACD_PRJ_ProjectGroup
     /// Represent modified date time
     /// </summary>
     public DateTime? Modified { get; set; }
-
-    public string? ConvenerStaffName { get; set; }
-    public string? ExpertStaffName { get; set; }
-    public string? ProjectTypeName { get; set; }
 }

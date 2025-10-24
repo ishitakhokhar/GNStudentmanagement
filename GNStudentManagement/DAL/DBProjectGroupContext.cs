@@ -22,10 +22,8 @@ namespace GNStudentManagement.DAL
                         {
                             dbCommand.CommandText = "ACD_PRJ_ProjectGroup_Update";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectGroup.ProjectGroupId));
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupName", objACD_PRJ_ProjectGroup.ProjectGroupName));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeID", objACD_PRJ_ProjectGroup.ProjectTypeId));
                             dbCommand.Parameters.Add(new SqlParameter("@GuideStaffID", objACD_PRJ_ProjectGroup.GuideStaffID));
-                            dbCommand.Parameters.Add(new SqlParameter("@GuideStaffName", objACD_PRJ_ProjectGroup.GuideStaffName));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTitle", objACD_PRJ_ProjectGroup.ProjectTitle));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectArea", objACD_PRJ_ProjectGroup.ProjectArea));
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectDescription", objACD_PRJ_ProjectGroup.ProjectDescription));
