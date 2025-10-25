@@ -155,5 +155,36 @@ namespace GNStudentManagement.DAL
                 return false;
             }
         }
+
+
+
+        public DataTable GetProfile(int userId, string role)
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand dbCommand = sqlConnection.CreateCommand())
+                    {
+                        dbCommand.CommandType = CommandType.StoredProcedure;
+                        dbCommand.CommandText = "ACD_AUTH_Profile_SelectByID";
+                        dbCommand.Parameters.Add(new SqlParameter("@UserID", userId));
+                        dbCommand.Parameters.Add(new SqlParameter("@Role", role));
+
+                        using (SqlDataReader reader = dbCommand.ExecuteReader())
+                        {
+                            DataTable dt = new DataTable();
+                            dt.Load(reader);
+                            return dt;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

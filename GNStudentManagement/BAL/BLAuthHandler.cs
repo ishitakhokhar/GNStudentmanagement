@@ -165,5 +165,27 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
         #endregion
+
+
+
+        public Response GetProfile(int userId, string role)
+        {
+            DataTable dt = objDBAuthContext.GetProfile(userId, role);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Profile loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Profile not found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
     }
 }

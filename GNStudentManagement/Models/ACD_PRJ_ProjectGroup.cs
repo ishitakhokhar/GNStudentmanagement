@@ -63,4 +63,26 @@ public  class ACD_PRJ_ProjectGroup
     /// Represent modified date time
     /// </summary>
     public DateTime? Modified { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string ProposalDoc { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public string ProposalStatus { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool? IsApproved { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public int? ApprovedBy { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DateTime? ApprovedDate { get; set; }
+
 }

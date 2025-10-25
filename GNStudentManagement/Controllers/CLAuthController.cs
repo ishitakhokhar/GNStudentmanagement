@@ -139,6 +139,29 @@ namespace GNStudentManagement.Controllers
             }
         }
         #endregion
+
+
+        #region Get User Profile by ID
+        [HttpGet("getProfileByID")]
+        public IActionResult GetProfileByID([FromQuery] int id, [FromQuery] string role)
+        {
+            if (id <= 0 || string.IsNullOrEmpty(role))
+            {
+                return BadRequest(new { Message = "Invalid ID or user type." });
+            }
+
+            Response response = objBLAuthHandler.GetProfile(id, role);
+
+            if (!response.IsError)
+            {
+                return Ok(response);
+            }
+
+            return NotFound(response);
+        }
+        #endregion
+
+
     }
 }
 
