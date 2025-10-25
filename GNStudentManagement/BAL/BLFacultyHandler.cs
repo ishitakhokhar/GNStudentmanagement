@@ -53,9 +53,30 @@ namespace GNStudentManagement.BAL
             }
             return objResponse;
         }
-        public Response GetProjectGroupDropDown()
+
+        public Response GetAllFaculty()
         {
-            DataTable dt = objDBFacultyContext.GetProjectGroupDropDown();
+            DataTable dt = objDBFacultyContext.GetData();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Faculty records loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "No faculty records found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+        public Response GetFacultyDropDown()
+        {
+            DataTable dt = objDBFacultyContext.GetFacultyDropDown();
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -72,5 +93,48 @@ namespace GNStudentManagement.BAL
 
             return objResponse;
         }
+
+
+        public Response Save(ACD_Staff objACD_Staff)
+        {
+            Response objResponse = new Response();
+
+            if (objACD_Staff == null)
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Invalid Faculty data.";
+                objResponse.Data = new DataTable();
+                return objResponse;
+            }
+
+            bool success = objDBFacultyContext.InsertUpdate(objACD_Staff);
+
+            if (success)
+            {
+                objResponse.IsError = false;
+
+                if (objACD_Staff.StaffId > 0)
+                    objResponse.Message = "Faculty updated successfully.";
+                else
+                    objResponse.Message = "Faculty inserted successfully.";
+
+                objResponse.Data = new DataTable();
+            }
+            else
+            {
+                objResponse.IsError = true;
+
+                if (objACD_Staff.StaffId > 0)
+                    objResponse.Message = "Failed to update Faculty.";
+                else
+                    objResponse.Message = "Failed to insert Faculty.";
+
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+
     }
 }

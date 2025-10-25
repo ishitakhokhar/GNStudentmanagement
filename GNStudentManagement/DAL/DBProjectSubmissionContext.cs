@@ -1,14 +1,15 @@
 ﻿using GNStudentManagement.Helpers;
 using GNStudentManagement.Models;
 using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
 using System.Data.Common;
 
 namespace GNStudentManagement.DAL
 {
-    public class DBFacultyContext : ConnectionHelper
+    public class DBProjectSubmissionContext : ConnectionHelper
     {
-        public bool InsertUpdate(ACD_Staff objACD_Staff)
+        public bool InsertUpdate(ACD_PRJ_ProjectSubmission objACD_PRJ_ProjectSubmission)
         {
             try
             {
@@ -19,22 +20,27 @@ namespace GNStudentManagement.DAL
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
 
-                        if (objACD_Staff.StaffId > 0)
+                  
+                        if (objACD_PRJ_ProjectSubmission.ProjectSubmissionID > 0)
                         {
-                            dbCommand.CommandText = "ACD_Staff_Update";
-                            dbCommand.Parameters.Add(new SqlParameter("@StaffId", objACD_Staff.StaffId));
-                            dbCommand.Parameters.Add(new SqlParameter("@Modified", DateTime.Now));
+                            dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_Update";
+                            dbCommand.Parameters.Add(new SqlParameter("@ProjectSubmissionID", objACD_PRJ_ProjectSubmission.ProjectSubmissionID));
+                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectSubmission.ProjectGroupID));
+                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectSubmission.StudentID));
+                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionLink", objACD_PRJ_ProjectSubmission.SubmissionLink));
+                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionRemarks", objACD_PRJ_ProjectSubmission.SubmissionRemarks ?? (object)DBNull.Value));
+                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectSubmission.Description ?? (object)DBNull.Value));
                         }
+               
                         else
                         {
-                            dbCommand.CommandText = "ACD_Staff_Insert";
+                            dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_Insert";
+                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectSubmission.ProjectGroupID));
+                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectSubmission.StudentID));
+                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionLink", objACD_PRJ_ProjectSubmission.SubmissionLink));
+                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionRemarks", objACD_PRJ_ProjectSubmission.SubmissionRemarks ?? (object)DBNull.Value));
+                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectSubmission.Description ?? (object)DBNull.Value));
                         }
-
-                        dbCommand.Parameters.Add(new SqlParameter("@StaffName", objACD_Staff.StaffName));
-                        dbCommand.Parameters.Add(new SqlParameter("@Email", objACD_Staff.Email));
-                        dbCommand.Parameters.Add(new SqlParameter("@Password",objACD_Staff.Password));
-                        dbCommand.Parameters.Add(new SqlParameter("@Phone", objACD_Staff.Phone));
-                        dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_Staff.Description ?? (object)DBNull.Value));
 
                         dbCommand.ExecuteNonQuery();
                     }
@@ -47,34 +53,28 @@ namespace GNStudentManagement.DAL
             }
         }
 
-        public DataTable Login(LoginModel objLoginModel)
+        public bool Delete(int ProjectSubmissionID)
         {
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand dbCommand = sqlConnection.CreateCommand())
+                    using (DbCommand dbCommand = sqlConnection.CreateCommand())
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
-                        dbCommand.CommandText = "ACD_Staff_Login";
-                        dbCommand.Parameters.AddWithValue("@Email", objLoginModel.Email);
-                        dbCommand.Parameters.AddWithValue("@Password", objLoginModel.Password);
-                        using (SqlDataReader reader = dbCommand.ExecuteReader())
-                        {
-                            DataTable dt = new DataTable();
-                            dt.Load(reader);
-                            return dt;
-                        }
+                        dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_Delete";
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectSubmissionID", ProjectSubmissionID));
+                        dbCommand.ExecuteNonQuery();
                     }
                 }
+                return true;
             }
             catch (Exception)
             {
-                return null;
+                return false;
             }
         }
-
 
         public DataTable GetData()
         {
@@ -86,7 +86,7 @@ namespace GNStudentManagement.DAL
                     using (SqlCommand dbCommand = sqlConnection.CreateCommand())
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
-                        dbCommand.CommandText = "ACD_Staff_SelectAll";
+                        dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_SelectAll";
                         using (SqlDataReader reader = dbCommand.ExecuteReader())
                         {
                             DataTable dt = new DataTable();
@@ -101,7 +101,8 @@ namespace GNStudentManagement.DAL
                 return null;
             }
         }
-        public DataTable GetFacultyDropDown()
+
+        public DataTable GetByID(int ProjectSubmissionID)
         {
             try
             {
@@ -111,7 +112,8 @@ namespace GNStudentManagement.DAL
                     using (SqlCommand dbCommand = sqlConnection.CreateCommand())
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
-                        dbCommand.CommandText = "ACD_Staff_DropDown";
+                        dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_SelectByID";
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectSubmissionID", ProjectSubmissionID));
 
                         using (SqlDataReader reader = dbCommand.ExecuteReader())
                         {
@@ -127,7 +129,5 @@ namespace GNStudentManagement.DAL
                 return null;
             }
         }
-
-
     }
 }

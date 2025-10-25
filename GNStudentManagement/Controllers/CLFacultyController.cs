@@ -19,12 +19,53 @@ namespace GNStudentManagement.Controllers
         }
         #endregion
 
+        #region
+        [HttpGet("getall")]
+        public IActionResult GetAllFaculty()
+        {
+            Response response = objBLFacultyHandler.GetAllFaculty();
+            if (!response.IsError)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return NotFound(response);
+            }
+
+        }
+    #endregion
+
+        #region 
+        [HttpPost("insert")]
+        public IActionResult Insert([FromBody] ACD_Staff objACD_Staff)
+        {
+            if (objACD_Staff == null)
+            {
+                return BadRequest(new { Message = "Invalid project group data." });
+            }
+            objACD_Staff.StaffId = 0;
+
+            Response response = objBLFacultyHandler.Save(objACD_Staff);
+
+            if (!response.IsError)
+            {
+                return Ok(response);
+            }
+
+            else
+            {
+                return BadRequest(response);
+            }
+               
+        }
+        #endregion
 
         #region ProjectGroup DropDown
         [HttpGet("dropdown")]
         public IActionResult GetProjectGroupDropDown()
         {
-            Response response = objBLFacultyHandler.GetProjectGroupDropDown();
+            Response response = objBLFacultyHandler.GetFacultyDropDown();
 
             if (!response.IsError)
             {
