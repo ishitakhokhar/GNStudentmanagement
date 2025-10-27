@@ -1,5 +1,6 @@
 ﻿using GNStudentManagement.BAL;
 using GNStudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace GNStudentManagement.Controllers
         BLFacultyHandler objBLFacultyHandler = new BLFacultyHandler();
         #region login
         [HttpPost("login")]
+      
         public IActionResult Login([FromBody] LoginModel objLoginModel)
         {
             var response = objBLFacultyHandler.Login(objLoginModel);
@@ -21,6 +23,7 @@ namespace GNStudentManagement.Controllers
 
         #region
         [HttpGet("getall")]
+        [Authorize(Policy = "Admin")]
         public IActionResult GetAllFaculty()
         {
             Response response = objBLFacultyHandler.GetAllFaculty();
@@ -38,6 +41,7 @@ namespace GNStudentManagement.Controllers
 
         #region 
         [HttpPost("insert")]
+        [Authorize(Policy = "Admin")]
         public IActionResult Insert([FromBody] ACD_Staff objACD_Staff)
         {
             if (objACD_Staff == null)

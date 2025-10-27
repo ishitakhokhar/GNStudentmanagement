@@ -24,7 +24,7 @@ namespace GNStudentManagement.Helpers
             if (string.IsNullOrWhiteSpace(role))
                 throw new ArgumentException("Role cannot be null or empty.", nameof(role));
 
-            // Define the claims for the token
+     
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, email),

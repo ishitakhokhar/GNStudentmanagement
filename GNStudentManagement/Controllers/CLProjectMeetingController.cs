@@ -1,5 +1,6 @@
 ﻿using GNStudentManagement.BAL;
 using GNStudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace GNStudentManagement.Controllers
 
         #region Get All Project Meetings
         [HttpGet("getall")]
+        [Authorize(Policy ="AdminorStaff")]
         public IActionResult GetAllProjectMeetings()
         {
             Response response = objBLProjectMeetingHandler.GetAllProjectMeetings();
@@ -29,6 +31,7 @@ namespace GNStudentManagement.Controllers
 
         #region Get Project Meeting  by ID
         [HttpGet("id")]
+        [Authorize(Policy = "AdminStaffOrStudent")]
         public IActionResult GetProjectMeetingByID([FromQuery] int ProjectMeetingId)
         {
             if (ProjectMeetingId <= 0)
@@ -46,6 +49,7 @@ namespace GNStudentManagement.Controllers
 
         #region Insert Project Group Member
         [HttpPost("insert")]
+        [Authorize(Policy ="Staff")]
         public IActionResult Insert([FromBody] ACD_PRJ_ProjectMeeting objACD_PRJ_ProjectMeeting)
         {
             if (objACD_PRJ_ProjectMeeting == null)
@@ -66,6 +70,7 @@ namespace GNStudentManagement.Controllers
 
         #region Update Project Meeting
         [HttpPut("edit/{id}")]
+        [Authorize(Policy = "Staff")]
         public IActionResult Edit(int id, [FromBody] ACD_PRJ_ProjectMeeting objACD_PRJ_ProjectMeeting)
         {
             if (objACD_PRJ_ProjectMeeting == null || id <= 0)
@@ -86,6 +91,7 @@ namespace GNStudentManagement.Controllers
 
         #region Delete Project Meeting
         [HttpDelete("id")]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeleteProjectMeeting([FromQuery] int ProjectMeetingId)
         {
             Response response = objBLProjectMeetingHandler.Delete(ProjectMeetingId);

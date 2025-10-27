@@ -1,5 +1,6 @@
 ﻿using GNStudentManagement.BAL;
 using GNStudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace GNStudentManagement.Controllers
 
         #region Get All Attendance Records
         [HttpGet("getall")]
+        [Authorize(Policy ="AdminorStaff")]
         public IActionResult GetAllAttendance()
         {
             Response response = objBLProjectMeetingAttendanceHandler.GetAll();
@@ -29,6 +31,7 @@ namespace GNStudentManagement.Controllers
 
         #region Insert Attendance
         [HttpPost("insert")]
+        [Authorize(Policy ="Staff")]
         public IActionResult Insert([FromBody] ACD_PRJ_ProjectMeetingAttendance objACD_PRJ_ProjectMeetingAttendance)
         {
             if (objACD_PRJ_ProjectMeetingAttendance == null)
@@ -54,6 +57,7 @@ namespace GNStudentManagement.Controllers
 
         #region Update Attendance
         [HttpPut("edit/{id}")]
+        [Authorize(Policy = "Staff")]
         public IActionResult Edit(int id, [FromBody] ACD_PRJ_ProjectMeetingAttendance objACD_PRJ_ProjectMeetingAttendance)
         {
             if (objACD_PRJ_ProjectMeetingAttendance == null || id <= 0)
@@ -80,6 +84,7 @@ namespace GNStudentManagement.Controllers
 
         #region Delete Attendance
         [HttpDelete("id")]
+        [Authorize(Policy ="Admin")]
         public IActionResult DeleteAttendance([FromQuery] int ProjectMeetingAttendanceID)
         {
             Response response = objBLProjectMeetingAttendanceHandler.Delete(ProjectMeetingAttendanceID);

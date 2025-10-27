@@ -1,5 +1,6 @@
 ﻿using GNStudentManagement.BAL;
 using GNStudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace GNStudentManagement.Controllers
 
         #region Get All Project Submissions
         [HttpGet("getall")]
+        [Authorize(Policy = "AdminOrStaff")]
         public IActionResult GetAllProjectSubmissions()
         {
             Response response = objBLProjectSubmissionHandler.GetAllProjectSubmissions();
@@ -29,6 +31,7 @@ namespace GNStudentManagement.Controllers
 
         #region Get Project Submission by ID
         [HttpGet("id")]
+        [Authorize(Policy = "AdminStaffOrStudent")]
         public IActionResult GetProjectSubmissionByID([FromQuery] int ProjectSubmissionId)
         {
             if (ProjectSubmissionId <= 0)
@@ -46,6 +49,7 @@ namespace GNStudentManagement.Controllers
 
         #region Insert Project Submission
         [HttpPost("insert")]
+        [Authorize(Policy = "Student")]
         public IActionResult Insert([FromBody] ACD_PRJ_ProjectSubmission objACD_PRJ_ProjectSubmission)
         {
             if (objACD_PRJ_ProjectSubmission == null)
@@ -66,6 +70,7 @@ namespace GNStudentManagement.Controllers
 
         #region Update Project Submission
         [HttpPut("edit/{id}")]
+        [Authorize(Policy = "Student")]
         public IActionResult Edit(int id, [FromBody] ACD_PRJ_ProjectSubmission objACD_PRJ_ProjectSubmission)
         {
             if (objACD_PRJ_ProjectSubmission == null || id <= 0)
@@ -86,6 +91,7 @@ namespace GNStudentManagement.Controllers
 
         #region Delete Project Submission
         [HttpDelete("id")]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeleteProjectSubmission([FromQuery] int ProjectSubmissionId)
         {
             Response response = objBLProjectSubmissionHandler.Delete(ProjectSubmissionId);

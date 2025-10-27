@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using BCrypt.Net;
 using GNStudentManagement.BAL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GNStudentManagement.Controllers
 {
@@ -41,6 +42,7 @@ namespace GNStudentManagement.Controllers
 
         #region Get All Students
         [HttpGet("getall")]
+        [Authorize(Policy="Admin")]
         public IActionResult GetAllStudents()
         {
             Response response = objBLAuthHandler.GetAll();
@@ -55,9 +57,10 @@ namespace GNStudentManagement.Controllers
         }
         #endregion
 
-        #region Get Project Meeting  by ID
+        #region Get Student by ID
         [HttpGet("id")]
-        public IActionResult GetProjectMeetingByID([FromQuery] int StudentId)
+        [Authorize(Policy ="Admin,Staff")]
+        public IActionResult GetStudentByID([FromQuery] int StudentId)
         {
             if (StudentId <= 0)
             {
@@ -125,6 +128,7 @@ namespace GNStudentManagement.Controllers
 
         #region Delete Student
         [HttpDelete("id")]
+        [Authorize(Policy ="Admin")]
         public IActionResult DeleteStudent([FromQuery] int StudentId)
         {
             Response response = objBLAuthHandler.Delete(StudentId);

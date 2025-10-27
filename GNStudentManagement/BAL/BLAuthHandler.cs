@@ -65,7 +65,8 @@ namespace GNStudentManagement.BAL
                             StudentId = studentId,
                             Name = name,
                             Email = email,
-                            Token = ((dynamic)tokenObject).Token 
+                            Token = ((dynamic)tokenObject).Token ,
+                        
                         }
                     };
                 }

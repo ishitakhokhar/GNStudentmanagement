@@ -28,9 +28,15 @@ namespace GNStudentManagement.BAL
                     int StaffId = Convert.ToInt32(row["StaffID"]); 
                     string email = row["Email"].ToString();
                     string name = row["StaffName"].ToString();
+                    String description=row["Description"].ToString();
 
+                    String role;
+                    if (description.ToLower().Contains("admin"))
+                        role = "Admin";
+                    else
+                        role = "Staff";
 
-                    var tokenObject = objJWTHelper.GenerateJWTToken(email, StaffId, "Staff"); 
+                    var tokenObject = objJWTHelper.GenerateJWTToken(email, StaffId, role); 
 
                     return new
                     {
@@ -41,7 +47,8 @@ namespace GNStudentManagement.BAL
                             StaffId = StaffId,
                             Name = name,
                             Email = email,
-                            Token = ((dynamic)tokenObject).Token 
+                            Token = ((dynamic)tokenObject).Token, 
+                            role=role
                         }
                     };
                 }

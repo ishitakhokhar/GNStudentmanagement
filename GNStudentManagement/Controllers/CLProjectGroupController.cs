@@ -17,6 +17,7 @@ namespace GNStudentManagement.Controllers
         #region Get All Project Groups
 
         [HttpGet("getall")]
+        [Authorize(Policy ="Admin")]
         public IActionResult GetAllProjectGroups()
         {
             Response response = objBLProjectGroupHandler.GetAllProjectGroups();
@@ -33,6 +34,7 @@ namespace GNStudentManagement.Controllers
 
         #region
         [HttpGet("id")]
+        [Authorize]
         public IActionResult GetProjectTypeByID([FromQuery] int projectGroupId)
         {
             if (projectGroupId <= 0)
@@ -50,6 +52,7 @@ namespace GNStudentManagement.Controllers
 
         #region 
         [HttpPost("insert")]
+        [Authorize(Policy ="Admin")]
         public IActionResult Insert([FromBody] ACD_PRJ_ProjectGroup objACD_PRJ_ProjectGroup)
         {
             if (objACD_PRJ_ProjectGroup == null)
@@ -70,6 +73,7 @@ namespace GNStudentManagement.Controllers
 
 
         [HttpPut("edit/{id}")]
+        [Authorize(Policy ="Admin")]
         public IActionResult Edit(int id, [FromBody] ACD_PRJ_ProjectGroup objACD_PRJ_ProjectGroup)
         {
             if (objACD_PRJ_ProjectGroup == null || id <= 0)
@@ -91,6 +95,7 @@ namespace GNStudentManagement.Controllers
 
         #region
         [HttpDelete("id")]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeleteProjectType([FromQuery] int projectGroupId)
         {
             Response response = objBLProjectGroupHandler.Delete(projectGroupId);
@@ -108,6 +113,7 @@ namespace GNStudentManagement.Controllers
 
         #region ProjectGroup DropDown
         [HttpGet("dropdown")]
+        [Authorize(Policy = "AdminOrStaff")]
         public IActionResult GetProjectGroupDropDown()
         {
             Response response = objBLProjectGroupHandler.GetProjectGroupDropDown();

@@ -90,9 +90,18 @@ builder.Services.Configure<JWTModel>(
 
 var authBuilder = builder.Services.AddAuthorizationBuilder();
 
+
 authBuilder.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-authBuilder.AddPolicy("ManagerOrAdmin", policy => policy.RequireRole("Faculty"));
-authBuilder.AddPolicy("Employee", policy => policy.RequireRole("Student"));
+
+
+authBuilder.AddPolicy("AdminOrStaff", policy =>
+    policy.RequireRole("Admin", "Staff"));
+
+authBuilder.AddPolicy("AdminStaffOrStudent", policy =>
+    policy.RequireRole("Admin", "Staff", "Student"));
+
+
+authBuilder.AddPolicy("Student", policy => policy.RequireRole("Student"));
 
 
 

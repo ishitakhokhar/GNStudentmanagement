@@ -17,6 +17,7 @@ namespace GNStudentManagement.Controllers
         #region Get All Project Types
 
         [HttpGet("getall")]
+        [Authorize(Policy = "AdminStaffOrStudent")]
         public IActionResult GetAllProjectTypes()
         {
             Response response = objBLProjectTypeHandler.GetAllProjectTypes();
@@ -32,6 +33,7 @@ namespace GNStudentManagement.Controllers
         #endregion
 
         [HttpGet("id")]
+        [Authorize(Policy = "AdminStaffOrStudent")]
         public IActionResult GetProjectTypeByID([FromQuery] int projectTypeId)
         {
             if (projectTypeId <= 0)
@@ -46,6 +48,7 @@ namespace GNStudentManagement.Controllers
             return NotFound(response);
         }
         [HttpPost("insert")]
+        [Authorize(Policy = "Admin")]
         public IActionResult Insert([FromBody] ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
         {
             if (objACD_PRJ_ProjectType == null)
@@ -64,6 +67,7 @@ namespace GNStudentManagement.Controllers
 
 
         [HttpPut("edit/{id}")]
+        [Authorize(Policy = "Admin")]
         public IActionResult Edit(int id, [FromBody] ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
         {
             if (objACD_PRJ_ProjectType == null || id <= 0)
@@ -83,6 +87,7 @@ namespace GNStudentManagement.Controllers
 
 
         [HttpDelete("id")]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeleteProjectType([FromQuery] int projectTypeId)
         {
             Response response = objBLProjectTypeHandler.Delete(projectTypeId);
