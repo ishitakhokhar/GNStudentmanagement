@@ -55,7 +55,7 @@ namespace GNStudentManagement.BAL
         }
 
 
-        public Response Save(ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
+        public Response InsertUpdate(ACD_PRJ_ProjectType objACD_PRJ_ProjectType)
         {
             Response objResponse = new Response();
 

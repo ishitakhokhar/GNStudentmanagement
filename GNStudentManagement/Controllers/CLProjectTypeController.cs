@@ -57,7 +57,7 @@ namespace GNStudentManagement.Controllers
             }
             objACD_PRJ_ProjectType.ProjectTypeId = 0;
 
-            Response response = objBLProjectTypeHandler.Save(objACD_PRJ_ProjectType);
+            Response response = objBLProjectTypeHandler.InsertUpdate(objACD_PRJ_ProjectType);
 
             if (!response.IsError)
                 return Ok(response);
@@ -77,7 +77,7 @@ namespace GNStudentManagement.Controllers
 
             objACD_PRJ_ProjectType.ProjectTypeId = id;
 
-            Response response = objBLProjectTypeHandler.Save(objACD_PRJ_ProjectType);
+            Response response = objBLProjectTypeHandler.InsertUpdate(objACD_PRJ_ProjectType);
 
             if (!response.IsError)
                 return Ok(response);

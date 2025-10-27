@@ -18,35 +18,30 @@ namespace GNStudentManagement.DAL
                     using (DbCommand dbCommand = sqlConnection.CreateCommand())
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
+
                         if (objACD_PRJ_ProjectMeeting.ProjectMeetingId > 0)
                         {
+                            
                             dbCommand.CommandText = "ACD_PRJ_ProjectMeeting_Update";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectMeetingID", objACD_PRJ_ProjectMeeting.ProjectMeetingId));
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectMeeting.ProjectGroupId));
-                            dbCommand.Parameters.Add(new SqlParameter("@GuideStaffID", objACD_PRJ_ProjectMeeting.GuideStaffId));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingDateTime", objACD_PRJ_ProjectMeeting.MeetingDateTime));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingPurpose", objACD_PRJ_ProjectMeeting.MeetingPurpose));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingLocation", objACD_PRJ_ProjectMeeting.MeetingLocation));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingNotes", objACD_PRJ_ProjectMeeting.MeetingNotes));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingStatus", objACD_PRJ_ProjectMeeting.MeetingStatus));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingStatusDescription", objACD_PRJ_ProjectMeeting.MeetingStatusDescription));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingStatusDatetime", objACD_PRJ_ProjectMeeting.MeetingStatusDatetime));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectMeeting.Description));
+                            dbCommand.Parameters.Add(new SqlParameter("@Modified", DateTime.Now));
                         }
                         else
                         {
+                       
                             dbCommand.CommandText = "ACD_PRJ_ProjectMeeting_Insert";
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectMeeting.ProjectGroupId));
-                            dbCommand.Parameters.Add(new SqlParameter("@GuideStaffID", objACD_PRJ_ProjectMeeting.GuideStaffId));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingDateTime", objACD_PRJ_ProjectMeeting.MeetingDateTime));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingPurpose", objACD_PRJ_ProjectMeeting.MeetingPurpose));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingLocation", objACD_PRJ_ProjectMeeting.MeetingLocation));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingNotes", objACD_PRJ_ProjectMeeting.MeetingNotes));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingStatus", objACD_PRJ_ProjectMeeting.MeetingStatus));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingStatusDescription", objACD_PRJ_ProjectMeeting.MeetingStatusDescription));
-                            dbCommand.Parameters.Add(new SqlParameter("@MeetingStatusDatetime", objACD_PRJ_ProjectMeeting.MeetingStatusDatetime));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectMeeting.Description));
                         }
+
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectMeeting.ProjectGroupId));
+                        dbCommand.Parameters.Add(new SqlParameter("@GuideStaffID", objACD_PRJ_ProjectMeeting.GuideStaffId));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingDateTime", objACD_PRJ_ProjectMeeting.MeetingDateTime));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingPurpose", objACD_PRJ_ProjectMeeting.MeetingPurpose ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingLocation", objACD_PRJ_ProjectMeeting.MeetingLocation ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingNotes", objACD_PRJ_ProjectMeeting.MeetingNotes ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingStatus", objACD_PRJ_ProjectMeeting.MeetingStatus ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingStatusDescription", objACD_PRJ_ProjectMeeting.MeetingStatusDescription ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@MeetingStatusDatetime", objACD_PRJ_ProjectMeeting.MeetingStatusDatetime));
+                        dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectMeeting.Description ?? (object)DBNull.Value));
 
                         dbCommand.ExecuteNonQuery();
                     }

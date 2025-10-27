@@ -18,19 +18,23 @@ namespace GNStudentManagement.DAL
                     using (DbCommand dbCommand = sqlConnection.CreateCommand())
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
+
                         if (objACD_PRJ_ProjectType.ProjectTypeId > 0)
                         {
+                            
                             dbCommand.CommandText = "ACD_PRJ_ProjectType_Update";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeID", objACD_PRJ_ProjectType.ProjectTypeId));
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeName", objACD_PRJ_ProjectType.ProjectTypeName));
-                            dbCommand.Parameters.Add(new SqlParameter("Description", objACD_PRJ_ProjectType.Description));
+                            dbCommand.Parameters.Add(new SqlParameter("@Modified", DateTime.Now));
                         }
                         else
                         {
+                            
                             dbCommand.CommandText = "ACD_PRJ_ProjectType_Insert";
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeName", objACD_PRJ_ProjectType.ProjectTypeName));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectType.Description));
                         }
+
+                        
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectTypeName", objACD_PRJ_ProjectType.ProjectTypeName));
+                        dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectType.Description ?? (object)DBNull.Value));
 
                         dbCommand.ExecuteNonQuery();
                     }

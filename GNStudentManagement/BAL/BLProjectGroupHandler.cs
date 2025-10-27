@@ -31,8 +31,28 @@ namespace GNStudentManagement.BAL
 
             return objResponse;
         }
+        public Response GetProjectGroupByID(int projectGroupId)
+        {
+            Response objResponse = new Response();
+            DataTable dt = objDBProjectGroupContext.GetByID(projectGroupId);
 
-        public Response Save(ACD_PRJ_ProjectGroup objACD_PRJ_ProjectGroup)
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Project Group loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Project Group not found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+        public Response InsertUpdate(ACD_PRJ_ProjectGroup objACD_PRJ_ProjectGroup)
         {
             Response objResponse = new Response();
 
@@ -72,27 +92,6 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
 
-
-        public Response GetProjectGroupByID(int projectGroupId)
-        {
-            Response objResponse = new Response();
-            DataTable dt = objDBProjectGroupContext.GetByID(projectGroupId);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Project Group loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "Project Group not found.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
 
         public Response Delete(int projectGroupId)
         {

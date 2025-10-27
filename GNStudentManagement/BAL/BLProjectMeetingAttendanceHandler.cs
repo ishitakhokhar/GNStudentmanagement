@@ -11,6 +11,26 @@ namespace GNStudentManagement.BAL
         DBProjectMeetingAttendanceContext objDBProjectMeetingAttendanceContext = new DBProjectMeetingAttendanceContext();
         Response objResponse = new Response();
 
+
+        public Response GetAll()
+        {
+            DataTable dt = objDBProjectMeetingAttendanceContext.GetData();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Attendance records loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "No attendance records found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
         public Response InsertUpdate(ACD_PRJ_ProjectMeetingAttendance objACD_PRJ_ProjectMeetingAttendance)
         {
             if (objACD_PRJ_ProjectMeetingAttendance == null)
@@ -53,24 +73,6 @@ namespace GNStudentManagement.BAL
         }
 
   
-        public Response GetAll()
-        {
-            DataTable dt = objDBProjectMeetingAttendanceContext.GetData();
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Attendance records loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "No attendance records found.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
+      
     }
 }

@@ -21,23 +21,23 @@ namespace GNStudentManagement.DAL
 
                         if (objACD_PRJ_ProjectGroupMember.ProjectGroupMemberId > 0)
                         {
+                         
                             dbCommand.CommandText = "ACD_PRJ_ProjectGroupMember_Update";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupMemberID", objACD_PRJ_ProjectGroupMember.ProjectGroupMemberId));
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectGroupMember.ProjectGroupId));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectGroupMember.StudentId));
-                            dbCommand.Parameters.Add(new SqlParameter("@IsGroupLeader", objACD_PRJ_ProjectGroupMember.IsGroupLeader));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentCGPA", objACD_PRJ_ProjectGroupMember.StudentCgpa));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectGroupMember.Description));
+                            dbCommand.Parameters.Add(new SqlParameter("@Modified", DateTime.Now));
                         }
                         else
                         {
+                           
                             dbCommand.CommandText = "ACD_PRJ_ProjectGroupMember_Insert";
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectGroupMember.ProjectGroupId));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectGroupMember.StudentId));
-                            dbCommand.Parameters.Add(new SqlParameter("@IsGroupLeader", objACD_PRJ_ProjectGroupMember.IsGroupLeader));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentCGPA", objACD_PRJ_ProjectGroupMember.StudentCgpa));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectGroupMember.Description));
                         }
+
+                       
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectGroupMember.ProjectGroupId));
+                        dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectGroupMember.StudentId));
+                        dbCommand.Parameters.Add(new SqlParameter("@IsGroupLeader", objACD_PRJ_ProjectGroupMember.IsGroupLeader));
+                        dbCommand.Parameters.Add(new SqlParameter("@StudentCGPA", objACD_PRJ_ProjectGroupMember.StudentCgpa));
+                        dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectGroupMember.Description ?? (object)DBNull.Value));
 
                         dbCommand.ExecuteNonQuery();
                     }

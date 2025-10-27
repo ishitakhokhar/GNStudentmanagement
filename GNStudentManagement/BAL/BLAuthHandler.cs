@@ -79,49 +79,6 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
 
-        public Response InsertUpdate(ACD_Student objACD_Student)
-        {
-            if (objACD_Student == null)
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "Invalid Student data.";
-            }
-            else
-            {
-                bool success = objDBAuthContext.InsertUpdate(objACD_Student);
-                if (success)
-                {
-                    objResponse.IsError = false;
-                    objResponse.Message = "Student saved successfully.";
-                }
-                else
-                {
-                    objResponse.IsError = true;
-                    objResponse.Message = "Failed to save Student.";
-                }
-            }
-            return objResponse;
-        }
-
-        #region Delete Student
-        public Response Delete(int studentId)
-        {
-            bool success = objDBAuthContext.Delete(studentId);
-            if (success)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Student deleted successfully.";
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "Failed to delete student.";
-            }
-            return objResponse;
-        }
-        #endregion
-
-
         #region Get All Students
         public Response GetAll()
         {
@@ -168,6 +125,47 @@ namespace GNStudentManagement.BAL
         #endregion
 
 
+        public Response InsertUpdate(ACD_Student objACD_Student)
+        {
+            if (objACD_Student == null)
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Invalid Student data.";
+            }
+            else
+            {
+                bool success = objDBAuthContext.InsertUpdate(objACD_Student);
+                if (success)
+                {
+                    objResponse.IsError = false;
+                    objResponse.Message = "Student saved successfully.";
+                }
+                else
+                {
+                    objResponse.IsError = true;
+                    objResponse.Message = "Failed to save Student.";
+                }
+            }
+            return objResponse;
+        }
+
+        #region Delete Student
+        public Response Delete(int studentId)
+        {
+            bool success = objDBAuthContext.Delete(studentId);
+            if (success)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Student deleted successfully.";
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Failed to delete student.";
+            }
+            return objResponse;
+        }
+        #endregion
 
         public Response GetProfile(int userId, string role)
         {

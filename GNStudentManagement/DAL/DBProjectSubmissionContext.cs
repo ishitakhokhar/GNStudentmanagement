@@ -20,27 +20,25 @@ namespace GNStudentManagement.DAL
                     {
                         dbCommand.CommandType = CommandType.StoredProcedure;
 
-                  
                         if (objACD_PRJ_ProjectSubmission.ProjectSubmissionID > 0)
                         {
+                            
                             dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_Update";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectSubmissionID", objACD_PRJ_ProjectSubmission.ProjectSubmissionID));
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectSubmission.ProjectGroupID));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectSubmission.StudentID));
-                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionLink", objACD_PRJ_ProjectSubmission.SubmissionLink));
-                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionRemarks", objACD_PRJ_ProjectSubmission.SubmissionRemarks ?? (object)DBNull.Value));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectSubmission.Description ?? (object)DBNull.Value));
+                            dbCommand.Parameters.Add(new SqlParameter("@Modified", DateTime.Now));
                         }
-               
                         else
                         {
+                            
                             dbCommand.CommandText = "ACD_PRJ_ProjectSubmission_Insert";
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectSubmission.ProjectGroupID));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectSubmission.StudentID));
-                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionLink", objACD_PRJ_ProjectSubmission.SubmissionLink));
-                            dbCommand.Parameters.Add(new SqlParameter("@SubmissionRemarks", objACD_PRJ_ProjectSubmission.SubmissionRemarks ?? (object)DBNull.Value));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectSubmission.Description ?? (object)DBNull.Value));
                         }
+
+                        
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectGroupID", objACD_PRJ_ProjectSubmission.ProjectGroupID));
+                        dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectSubmission.StudentID));
+                        dbCommand.Parameters.Add(new SqlParameter("@SubmissionLink", objACD_PRJ_ProjectSubmission.SubmissionLink ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@SubmissionRemarks", objACD_PRJ_ProjectSubmission.SubmissionRemarks ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectSubmission.Description ?? (object)DBNull.Value));
 
                         dbCommand.ExecuteNonQuery();
                     }

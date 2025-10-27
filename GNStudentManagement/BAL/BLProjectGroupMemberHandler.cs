@@ -11,6 +11,46 @@ namespace GNStudentManagement.BAL
         DBProjectGroupMemberContext objDBProjectGroupMemberContext = new DBProjectGroupMemberContext();
         Response objResponse = new Response();
 
+
+        public Response GetAll()
+        {
+            DataTable dt = objDBProjectGroupMemberContext.GetData();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Project group members loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "No project group members found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+        public Response GetByID(int projectGroupMemberID)
+        {
+            DataTable dt = objDBProjectGroupMemberContext.GetByID(projectGroupMemberID);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Project group member loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Project group member not found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
         public Response InsertUpdate(ACD_PRJ_ProjectGroupMember objACD_PRJ_ProjectGroupMember)
         {
             if (objACD_PRJ_ProjectGroupMember == null)
@@ -51,45 +91,9 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
 
-        public Response GetByID(int projectGroupMemberID)
-        {
-            DataTable dt = objDBProjectGroupMemberContext.GetByID(projectGroupMemberID);
+      
 
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Project group member loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "Project group member not found.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
-
-        public Response GetAll()
-        {
-            DataTable dt = objDBProjectGroupMemberContext.GetData();
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Project group members loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "No project group members found.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
+       
 
     }
 }

@@ -30,7 +30,28 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
 
-        public Response Save(ACD_PRJ_ProjectSubmission objACD_PRJ_ProjectSubmission)
+        public Response GetProjectSubmissionByID(int projectSubmissionId)
+        {
+            Response objResponse = new Response();
+            DataTable dt = objDBProjectSubmissionContext.GetByID(projectSubmissionId);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Project Submission loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Project Submission not found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+        public Response InsertUpdate(ACD_PRJ_ProjectSubmission objACD_PRJ_ProjectSubmission)
         {
             Response objResponse = new Response();
 
@@ -70,28 +91,7 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
 
-        public Response GetProjectSubmissionByID(int projectSubmissionId)
-        {
-            Response objResponse = new Response();
-            DataTable dt = objDBProjectSubmissionContext.GetByID(projectSubmissionId);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Project Submission loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "Project Submission not found.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
-
- 
+      
         public Response Delete(int projectSubmissionId)
         {
             Response objResponse = new Response();

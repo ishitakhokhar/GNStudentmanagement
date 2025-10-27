@@ -59,7 +59,7 @@ namespace GNStudentManagement.Controllers
 
             objACD_PRJ_ProjectMeeting.ProjectMeetingId = 0;
 
-            Response response = objBLProjectMeetingHandler.Save(objACD_PRJ_ProjectMeeting);
+            Response response = objBLProjectMeetingHandler.InsertUpdate(objACD_PRJ_ProjectMeeting);
 
             if (!response.IsError)
                 return Ok(response);
@@ -80,7 +80,7 @@ namespace GNStudentManagement.Controllers
 
             objACD_PRJ_ProjectMeeting.ProjectMeetingId = id;
 
-            Response response = objBLProjectMeetingHandler.Save(objACD_PRJ_ProjectMeeting);
+            Response response = objBLProjectMeetingHandler.InsertUpdate(objACD_PRJ_ProjectMeeting);
 
             if (!response.IsError)
                 return Ok(response);

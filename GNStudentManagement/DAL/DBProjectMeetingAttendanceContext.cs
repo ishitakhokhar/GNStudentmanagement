@@ -23,21 +23,18 @@ namespace GNStudentManagement.DAL
                         {
                             dbCommand.CommandText = "ACD_PRJ_ProjectMeetingAttendance_Update";
                             dbCommand.Parameters.Add(new SqlParameter("@ProjectMeetingAttendanceID", objACD_PRJ_ProjectMeetingAttendance.ProjectMeetingAttendanceId));
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectMeetingID", objACD_PRJ_ProjectMeetingAttendance.ProjectMeetingId));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectMeetingAttendance.StudentId));
-                            dbCommand.Parameters.Add(new SqlParameter("@IsPresent", objACD_PRJ_ProjectMeetingAttendance.IsPresent));
-                            dbCommand.Parameters.Add(new SqlParameter("@AttendanceRemarks", objACD_PRJ_ProjectMeetingAttendance.AttendanceRemarks ));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectMeetingAttendance.Description));
+                            dbCommand.Parameters.Add(new SqlParameter("@Modified", DateTime.Now));
                         }
                         else
                         {
                             dbCommand.CommandText = "ACD_PRJ_ProjectMeetingAttendance_Insert";
-                            dbCommand.Parameters.Add(new SqlParameter("@ProjectMeetingID", objACD_PRJ_ProjectMeetingAttendance.ProjectMeetingId));
-                            dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectMeetingAttendance.StudentId));
-                            dbCommand.Parameters.Add(new SqlParameter("@IsPresent", objACD_PRJ_ProjectMeetingAttendance.IsPresent));
-                            dbCommand.Parameters.Add(new SqlParameter("@AttendanceRemarks", objACD_PRJ_ProjectMeetingAttendance.AttendanceRemarks));
-                            dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectMeetingAttendance.Description ));
                         }
+
+                        dbCommand.Parameters.Add(new SqlParameter("@ProjectMeetingID", objACD_PRJ_ProjectMeetingAttendance.ProjectMeetingId));
+                        dbCommand.Parameters.Add(new SqlParameter("@StudentID", objACD_PRJ_ProjectMeetingAttendance.StudentId));
+                        dbCommand.Parameters.Add(new SqlParameter("@IsPresent", objACD_PRJ_ProjectMeetingAttendance.IsPresent));
+                        dbCommand.Parameters.Add(new SqlParameter("@AttendanceRemarks", objACD_PRJ_ProjectMeetingAttendance.AttendanceRemarks ?? (object)DBNull.Value));
+                        dbCommand.Parameters.Add(new SqlParameter("@Description", objACD_PRJ_ProjectMeetingAttendance.Description ?? (object)DBNull.Value));
 
                         dbCommand.ExecuteNonQuery();
                     }

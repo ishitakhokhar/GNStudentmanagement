@@ -32,7 +32,29 @@ namespace GNStudentManagement.BAL
         }
 
 
-        public Response Save(ACD_PRJ_ProjectMeeting objACD_PRJ_ProjectMeeting)
+        public Response GetProjectMeetingByID(int projectMeetingId)
+        {
+            Response objResponse = new Response();
+            DataTable dt = objDBProjectMeetingContext.GetByID(projectMeetingId);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Project Meeting loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "Project Meeting not found.";
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+
+        public Response InsertUpdate(ACD_PRJ_ProjectMeeting objACD_PRJ_ProjectMeeting)
         {
             Response objResponse = new Response();
 
@@ -73,26 +95,7 @@ namespace GNStudentManagement.BAL
         }
 
 
-        public Response GetProjectMeetingByID(int projectMeetingId)
-        {
-            Response objResponse = new Response();
-            DataTable dt = objDBProjectMeetingContext.GetByID(projectMeetingId);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Project Meeting loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "Project Meeting not found.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
+      
 
   
         public Response Delete(int projectMeetingId)

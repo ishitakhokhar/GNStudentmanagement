@@ -59,7 +59,7 @@ namespace GNStudentManagement.Controllers
 
             objACD_PRJ_ProjectSubmission.ProjectSubmissionID = 0;
 
-            Response response = objBLProjectSubmissionHandler.Save(objACD_PRJ_ProjectSubmission);
+            Response response = objBLProjectSubmissionHandler.InsertUpdate(objACD_PRJ_ProjectSubmission);
 
             if (!response.IsError)
                 return Ok(response);
@@ -80,7 +80,7 @@ namespace GNStudentManagement.Controllers
 
             objACD_PRJ_ProjectSubmission.ProjectSubmissionID = id;
 
-            Response response = objBLProjectSubmissionHandler.Save(objACD_PRJ_ProjectSubmission);
+            Response response = objBLProjectSubmissionHandler.InsertUpdate(objACD_PRJ_ProjectSubmission);
 
             if (!response.IsError)
                 return Ok(response);

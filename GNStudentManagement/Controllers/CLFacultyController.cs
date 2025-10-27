@@ -50,7 +50,7 @@ namespace GNStudentManagement.Controllers
             }
             objACD_Staff.StaffId = 0;
 
-            Response response = objBLFacultyHandler.Save(objACD_Staff);
+            Response response = objBLFacultyHandler.InsertUpdate(objACD_Staff);
 
             if (!response.IsError)
             {

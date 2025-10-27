@@ -81,28 +81,7 @@ namespace GNStudentManagement.BAL
             return objResponse;
         }
 
-        public Response GetFacultyDropDown()
-        {
-            DataTable dt = objDBFacultyContext.GetFacultyDropDown();
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                objResponse.IsError = false;
-                objResponse.Message = "Faculty dropdown loaded successfully.";
-                objResponse.Data = dt;
-            }
-            else
-            {
-                objResponse.IsError = true;
-                objResponse.Message = "No  faculty found for dropdown.";
-                objResponse.Data = new DataTable();
-            }
-
-            return objResponse;
-        }
-
-
-        public Response Save(ACD_Staff objACD_Staff)
+        public Response InsertUpdate(ACD_Staff objACD_Staff)
         {
             Response objResponse = new Response();
 
@@ -136,6 +115,27 @@ namespace GNStudentManagement.BAL
                 else
                     objResponse.Message = "Failed to insert Faculty.";
 
+                objResponse.Data = new DataTable();
+            }
+
+            return objResponse;
+        }
+
+
+        public Response GetFacultyDropDown()
+        {
+            DataTable dt = objDBFacultyContext.GetFacultyDropDown();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                objResponse.IsError = false;
+                objResponse.Message = "Faculty dropdown loaded successfully.";
+                objResponse.Data = dt;
+            }
+            else
+            {
+                objResponse.IsError = true;
+                objResponse.Message = "No  faculty found for dropdown.";
                 objResponse.Data = new DataTable();
             }
 
