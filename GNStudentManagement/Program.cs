@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,6 +81,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JWTModel>();
 JWTHelper.Initialize(jwtSettings);
